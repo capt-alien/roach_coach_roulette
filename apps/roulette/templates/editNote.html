@@ -42,6 +42,8 @@
             background-color: rgb(37, 37, 37);
             padding: 5px;
             font-family: sans-serif;
+            display: flex;
+            justify-content: space-between;
         }
 
         .header h2 {
@@ -73,7 +75,7 @@
             margin: 20px 0px;
         }
 
-        h3{
+        h3 {
             margin: 50px auto;
         }
 
@@ -85,6 +87,12 @@
             margin-top: 30px;
             box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
         }
+        .notes{
+            margin-top: 40px;
+        }
+        a{
+            text-decoration: underline;
+        }
     </Style>
 </head>
 
@@ -94,20 +102,26 @@
             <img class="logo" src="{% static 'images/roach.png'%}" alt="logo">
             <h2>ROACH COACH ROULETTE</h2>
         </div>
+        <a class="navbar-brand" href="/dashboard">Dashboard</a>
     </nav>
 
     <div class="container">
 
         <div class="main">
-            <h3> Restaurant Name HERE</h3>
-            <h3> Restaurant Location HERE</h3>
+            <h3>{{restaurant.name}}</h3>
+            <h3>{{restaurant.location}}</h3>
             <h1> ADD/EDIT NOTE</h1>
-            <Form method="POST" action="/dashboard">
+            <form method="POST" action="/edit_note/{{restaurant.id}}">
                 {% csrf_token %}
-                <textarea type="text" name="text" class="form-control" rows="6" placeholder="NOTE VARIABLE HERE" aria-label=""
-                    aria-describedby="basic-addon1"></textarea>
+                <textarea type="text" name="text" class="form-control" rows="6" placeholder="NOTE VARIABLE HERE"
+                    aria-label="" aria-describedby="basic-addon1"></textarea>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
+            <div class="notes">
+                {% for note in notes %}
+                <p>{{note.content}} {{note.created_at}}</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 

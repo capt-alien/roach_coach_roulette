@@ -18,8 +18,8 @@
             <h2>ROACH COACH ROULETTE</h2>
             <div>
                 <a class="navbar-brand" href="/resultsDisplay">Back</a>
-                <a class="navbar-brand" href="#!">Dashboard</a>
-                <a class="navbar-brand" href="#!">Log In</a>
+                <a class="navbar-brand" href="/dashboard">Dashboard</a>
+                <a class="navbar-brand" href="/loginReg">Log In</a>
             </div>
         </nav>
     </div>
@@ -39,7 +39,15 @@
             </div>
         </div>
         <div class="bottom">
+            {% if 'user_id' not in request.session %}
             <p><a href="/loginReg">Save for later</a></p>
+            {% else %}
+                {% if result_choice == '1' %}
+                    <p><a href="/save/1">Save for later</a></p>
+                {% else %}
+                    <p><a href="/save/2">Save for later</a></p>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 

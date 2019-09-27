@@ -26,14 +26,14 @@
             margin-top: 20px;
             border-radius: 10%;
         }
-    
+
         .button span {
             cursor: pointer;
             display: inline-block;
             position: relative;
             transition: 0.5s;
         }
-    
+
         .button span:after {
             content: '\00bb';
             position: absolute;
@@ -42,11 +42,11 @@
             right: -20px;
             transition: 0.5s;
         }
-    
+
         .button:hover span {
             padding-right: 25px;
         }
-    
+
         .button:hover span:after {
             opacity: 1;
             right: 0;
@@ -59,8 +59,12 @@
         <nav class="navbar fixed-top navbar-dark bg-primary">
             <h2>ROACH COACH ROULETTE</h2>
             <div>
-                <a class="navbar-brand" href="/dashboard">Dashboard</a>
+                {% if 'user_id' not in request.session %}
                 <a class="navbar-brand" href="/loginReg">Log In</a>
+                {% else %}
+                <a class="navbar-brand" href="/dashboard">Dashboard</a>
+                <a class="navbar-brand" class="navbar-brand" href="/reset">Log Out</a>
+                {% endif %}
             </div>
         </nav>
     </div>
@@ -80,9 +84,9 @@
             </div>
         </div>
         <div class="bottom">
-            <a href="/roulett" class="fas fa-redo fa-7x"></a>
+            <a href="/roulette/{{request.session.choice_id}}" class="fas fa-redo fa-7x"></a>
             <p>(Refresh your options!)</p>
-            <a  href="/"><button class="button" style="vertical-align:middle"><span>Start Over! </span></button></a>
+            <a href="/reset"><button class="button" style="vertical-align:middle"><span>Start Over! </span></button></a>
         </div>
     </div>
 

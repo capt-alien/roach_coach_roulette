@@ -22,10 +22,16 @@
                 <img class="logo" src="{% static 'images/roach.png'%}" alt="logo">
                 <h2 class="logo_text">ROACH COACH ROULETTE</h2>
             </div>
-            <a class="navbar-brand" href="#!">Log In</a>
+            {% if 'user_id' not in request.session %}
+            <a class="navbar-brand" href="/loginReg">Log In</a>
+            {% else %}
+            <a class="navbar-brand" href="/dashboard">Dashboard</a>
+            <a class="navbar-brand" class="navbar-brand" href="/reset">Log Out</a>
+            {% endif %}
+            
         </nav>
         <div id="container">
-            <form action="/roulette" method="POST">
+            <form action="/roulette/1" method="POST">
                 {% csrf_token %}
                 <div id="box2" class="box">
                     <h2>What are you Jonesin' for?</h2>

@@ -21,6 +21,10 @@ class UserManager(models.Manager):
         if postData["confirm_PW"] != postData["password"]:
             errors["password"]="Password does not match!!"
 
+        user = User.objects.filter(email=postData['email'])
+        if user:
+            errors['already_registered'] = "Email is already registered. Please log in."
+
         return errors
 
     def login_validator(self, postData):
@@ -51,12 +55,13 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=255)
     desc = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
+    user_saved = models.ManyToManyField (User, related_name ="saved")
     users = models.ManyToManyField (User, related_name ="favorites")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class Note(models.Model):
-    content = models.TextField()
+    content = models.TextField(null=True)
     user = models.ForeignKey(User, related_name="notes", on_delete=models.CASCADE)
     restaurant=models.ForeignKey(Restaurant, related_name="restaurant_name", on_delete=models.CASCADE )
     created_at = models.DateTimeField(auto_now_add=True)

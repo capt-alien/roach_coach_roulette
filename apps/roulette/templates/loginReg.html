@@ -104,6 +104,7 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
+
                 <Form method="POST" action="/newUser">
                     {% csrf_token %}
                     <h3>First Name</h3>
@@ -124,6 +125,7 @@
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
             </div>
+            
             <div class="right">
                 <form method="POST" action="/login">
                     {% csrf_token %}

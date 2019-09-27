@@ -19,22 +19,32 @@
             <img class="logo" src="{% static 'images/roach.png'%}" alt="logo">
             <h2>ROACH COACH ROULETTE</h2>
         </div>
-        <a class="navbar-brand" href="#!">Log In</a>
+        {% if 'user_id' not in request.session %}
+        <a class="navbar-brand" href="/loginReg">Log In</a>
+        {% else %}
+        <a class="navbar-brand" href="/dashboard">Dashboard</a>
+        <a class="navbar-brand" class="navbar-brand" href="/reset">Log Out</a>
+        {% endif %}
     </nav>
 
     <div class="container">
         <div class="top_section">
-            <h2 class="phrase">Nacho mama's Yelp</h2>
+            <h4 class="phrase">Nacho mama's Yelp</h4>
         </div>
         <div class="mid_section">
             <div class="side_container">
-                <button type="button" class="btn btn-secondary">Help me pick...</button>
-                <p>(I've got an idea but need help)</p>
-
+                <form action="/optionsDisplay" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="choice" value="1" class="btn btn-secondary">Help me pick...</button>
+                    <p>(I've got an idea but need help)</p>
+                </form>
             </div>
             <div class="side_container">
-                <button type="button" class="btn btn-secondary">Pick for me!</button>
-                <p>(I have no idea what to eat)</p>
+                <form action="/roulette/2" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="choice" value="2" class="btn btn-secondary">Pick for me!</button>
+                    <p>(I have no idea what to eat)</p>
+                </form>
             </div>
         </div>
     </div>

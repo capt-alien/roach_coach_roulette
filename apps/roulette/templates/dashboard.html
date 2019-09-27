@@ -18,16 +18,16 @@
             <img class="logo" src="{% static 'images/roach.png'%}" alt="logo">
             <h2>ROACH COACH ROULETTE</h2>
         </div>
-        <a class="logout" class="navbar-brand" href="#!">Log Out</a>
+        <a class="logout" class="navbar-brand" href="/reset">Log Out</a>
     </nav>
 
     <div class="container">
         <div class="top_section">
-            <h1>WELCOME USER!</h1>
+            <h1>WELCOME {{user_first_name}}!</h1>
         </div>
         <div class="mid_section">
             <div class="side_container">
-                <button type="button" class="btn btn-secondary">Find a Spot</button>
+                <a href="/refresh"><button type="button" class="btn btn-secondary">Find a Spot</button></a>
             </div>
         </div>
         <div class="favorites">
@@ -35,22 +35,25 @@
                 <h3>SAVED</h3>
                 <table class="table">
                     <thead class="thead-dark">
+
                         <tr>
                             <th>Restaurant</th>
                             <th>Food Type</th>
                             <th>Location</th>
                             <th><i class="far fa-thumbs-up"></i> OR <i class="far fa-thumbs-down"></i></th>
                         </tr>
+
                     </thead>
                     <tbody>
+                        {% for save in user_saved %}
                         <tr>
-                            <th scope="row"><a href="">Obu Ramen House</a></th>
-                            <td>Ramen</td>
-                            <td>San Jose, CA</td>
-                            <td><a href="" class="far fa-thumbs-up"></a> OR <a href="" class="far fa-thumbs-down"></a>
+                            <th scope="row"><a href="">{{save.name}}</a></th>
+                            <td>{{save.desc}}</td>
+                            <td>{{save.location}}</td>
+                            <td><a href="/move_to_fav/{{save.id}}" class="far fa-thumbs-up"></a> OR <a href="remove_from_saved/{{save.id}}" class="far fa-thumbs-down"></a>
                             </td>
                         </tr>
-
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -63,16 +66,22 @@
                             <th>Restaurant</th>
                             <th>Food Type</th>
                             <th>Location</th>
-                            <th>Add/Edit a Note</th>
+                            <th>Add/View a Note</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for fav in user_favorites %}
                         <tr>
-                            <th scope="row"><a href="">Obu Ramen House</a></th>
-                            <td>Ramen</td>
-                            <td>San Jose, CA</td>
-                            <td><a href="">Add/Edit</a></td>
+                            <th scope="row">
+                                <a href="">{{fav.name}}</a>
+                            </th>
+                            <td>{{fav.desc}}</td>
+
+                            <td>{{fav.location}}</td>
+
+                            <td><a href="/edit/{{fav.id}}">Add/View</a></td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
